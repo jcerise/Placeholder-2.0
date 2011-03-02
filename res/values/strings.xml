@@ -10,4 +10,6 @@
     	Copyright Advancingbackwards 2011\n\n
     	Some Icons by DryIcons
     </string>
+    <string name="gps_indicator">GPS is currently disabled! 
+    	Tap to enable</string>
 </resources>

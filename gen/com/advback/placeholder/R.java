@@ -33,6 +33,8 @@ public final class R {
         public static final int activity_label=0x7f060003;
         public static final int back_button=0x7f060004;
         public static final int dashboard=0x7f060006;
+        public static final int gps_enabled=0x7f060007;
+        public static final int gps_indicator=0x7f060008;
         public static final int information_content=0x7f060005;
         public static final int logo_nav=0x7f060000;
     }
@@ -46,6 +48,7 @@ public final class R {
         public static final int app_action_title=0x7f050002;
         public static final int app_class_title=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int gps_indicator=0x7f050005;
         public static final int information_text=0x7f050004;
         public static final int information_title=0x7f050003;
     }
