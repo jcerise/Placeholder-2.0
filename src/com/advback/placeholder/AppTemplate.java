@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.util.Log;
 
 public class AppTemplate extends Activity implements LocationListener, Listener {
 	
@@ -106,10 +107,12 @@ public class AppTemplate extends Activity implements LocationListener, Listener 
 	}
 
 	public void onProviderDisabled(String provider) {
+		Log.i("Main","Provider Has been disabled.");
 		gpsEnabled.setText("GPS is currently disabled! Tap to enable");
 	}
 
 	public void onProviderEnabled(String provider) {
+		Log.i("main", "Provider has been enabled.");
 		gpsEnabled.setText("GPS Enabled!");
 	}
 
@@ -118,6 +121,10 @@ public class AppTemplate extends Activity implements LocationListener, Listener 
 	}
 
 	public void onGpsStatusChanged(int event) {
-		
+		Log.i("main", "GPS Status has changed.");
+		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000, 0, this);
+			gpsEnabled.setText("GPS Enabled!");
+		}
 	}
 }
