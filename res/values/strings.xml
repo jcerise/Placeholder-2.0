@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Placeholder 2.0</string>
+    <string name="app_class_title">Test Activity</string>
+    <string name="app_action_title">Test Action</string>
+    <string name="information_title">About Placehodler 2.0</string>
+    <string name="information_text">\
+    	Placeholder Version 2.0\n\n
+    	Created by Jeremy Cerise\n\n
+    	Copyright Advancingbackwards 2011\n\n
+    	Some Icons by DryIcons
+    </string>
+</resources>
