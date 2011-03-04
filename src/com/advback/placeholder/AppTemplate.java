@@ -13,28 +13,25 @@ package com.advback.placeholder;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.GpsStatus.Listener;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.util.Log;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class AppTemplate extends Activity implements LocationListener, Listener {
+public class AppTemplate extends Activity {
 	
 	ImageButton actionOne;
 	ImageButton actionTwo;
 	double longitude, latitude, accuracy;
 	String provider;
-	LocationManager locManager;
+	LocationManager locManager;  
 	private TextView gpsEnabled;
+	private ImageButton gpsEnabledButton;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -82,49 +79,38 @@ public class AppTemplate extends Activity implements LocationListener, Listener 
 			}
 		});
 		
-		/*
-		 * This block of code checks whether or not the GPS is enabled.
-		 * We need to register a GpsStatusListner, in this case the activity
-		 * itself will act as the listener. This will ensure that we know when
-		 * the user turns the GPS on or off so we can update the text 
-		 * accordingly.
-		 */
 		gpsEnabled = (TextView) findViewById(R.id.gps_indicator);
-		//Find which provider is being used (Fine or Coarse)
-		locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		//register the GpsStatusListener
-		locManager.addGpsStatusListener(this);
-		//Check to see if the GPS is already enabled, and if so, grab a location
-		//every so often to keep the listener alive.
-		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000, 0, this);
-			gpsEnabled.setText("GPS Enabled!");
-		}
-	}
-
-	public void onLocationChanged(Location location) {
 		
-	}
-
-	public void onProviderDisabled(String provider) {
-		Log.i("Main","Provider Has been disabled.");
-		gpsEnabled.setText("GPS is currently disabled! Tap to enable");
-	}
-
-	public void onProviderEnabled(String provider) {
-		Log.i("main", "Provider has been enabled.");
-		gpsEnabled.setText("GPS Enabled!");
-	}
-
-	public void onStatusChanged(String provider, int status, Bundle extras) {
+		//Set up the ImageButton with an onclick that will launch the Locations
+		//Setting screen when clicked.
+		gpsEnabledButton = (ImageButton) findViewById(R.id.gps_enabled);
+		gpsEnabledButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				launchGpsOptions();
+			}
+		});
 		
+		//Set up our location manager so we can check if the GPS is on or off
+		locManager = (LocationManager) getSystemService(LOCATION_SERVICE);  	
+	}
+	
+	/**
+	 * Starts the Locations Settings activity so the user can manipulate the
+	 * GPS availability.
+	 */
+	private void launchGpsOptions() {
+		Intent gpsOptionsIntent = new Intent(
+				android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+		startActivity(gpsOptionsIntent);
 	}
 
-	public void onGpsStatusChanged(int event) {
-		Log.i("main", "GPS Status has changed.");
+	
+	protected void onResume() {
+		super.onResume();
 		if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000000000, 0, this);
 			gpsEnabled.setText("GPS Enabled!");
+		}else{
+			gpsEnabled.setText("GPS is currently disabled! Tap to enable");
 		}
 	}
 }
