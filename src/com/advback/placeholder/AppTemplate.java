@@ -73,7 +73,34 @@ public class AppTemplate extends Activity {
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				Intent intent = new Intent(AppTemplate.this, AppClass.class);
+				
+				Intent intent;
+				//Use the position within the gridview to decide which activity
+				//to launch
+				switch (position){
+				case 0:
+					//Launch the GPS information activity
+					intent = new Intent(AppTemplate.this, GpsInformation.class);
+					break;
+				case 1:
+					//Launch the new saved location activity
+					intent = new Intent(AppTemplate.this, AppClass.class);
+					break;
+				case 2:
+					//Launch the current map location activity
+					intent = new Intent(AppTemplate.this, AppClass.class);
+					break;
+				case 3:
+					//Launch the saved locations activity
+					intent = new Intent(AppTemplate.this, AppClass.class);
+					break;
+				default:
+					//If no other choice, launch an activity that states the 
+					//position that was selected. DEBUG ONLY, NEEDS TO BE
+					//REMOVED FOR PRODUCTION
+					intent = new Intent(AppTemplate.this, AppClass.class);
+				}
+				
 				intent.putExtra(AppClass.GRID_POSITION, position);
 				startActivityForResult(intent, 0);
 			}

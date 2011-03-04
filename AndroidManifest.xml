@@ -20,7 +20,12 @@
             </intent-filter>
         </activity>
         <activity 
-        	android:name=".AppClass"
+        	android:name="GpsInformation"
+        	android:label="@string/app_class_title"
+        	android:screenOrientation="portrait" >
+        </activity>
+        <activity 
+        	android:name="AppClass"
         	android:label="@string/app_class_title"
         	android:screenOrientation="portrait" >
         </activity>
